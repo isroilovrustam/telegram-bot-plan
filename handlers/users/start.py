@@ -7,19 +7,19 @@ from loader import dp, bot
 from utils.misc import subscription
 
 
-@dp.message_handler(commands=['start'])
-async def show_channels(message: types.Message):
-    channels_format = str()
-    for channel in CHANNELS:
-        chat = await bot.get_chat(channel)
-        invite_link = await chat.export_invite_link()
-        # logging.info(invite_link)
-        channels_format += f"👉 <a href='{invite_link}'>{chat.title}</a>\n"
-
-    await message.answer(f"Quyidagi kanallarga obuna bo'ling: \n"
-                         f"{channels_format}",
-                         reply_markup=check_button,
-                         disable_web_page_preview=True)
+# @dp.message_handler(commands=['start'])
+# async def show_channels(message: types.Message):
+#     channels_format = str()
+#     for channel in CHANNELS:
+#         chat = await bot.get_chat(channel)
+#         invite_link = await chat.export_invite_link()
+#         # logging.info(invite_link)
+#         channels_format += f"👉 <a href='{invite_link}'>{chat.title}</a>\n"
+#
+#     await message.answer(f"Quyidagi kanallarga obuna bo'ling: \n"
+#                          f"{channels_format}",
+#                          reply_markup=check_button,
+#                          disable_web_page_preview=True)
 
 
 @dp.callback_query_handler(text="check_subs")
@@ -39,6 +39,6 @@ async def checker(call: types.CallbackQuery):
 
     await call.message.answer(result, disable_web_page_preview=True)
 
-# @dp.message_handler(CommandStart())
-# async def bot_start(message: types.Message):
-#     await message.answer(f"Salom, {message.from_user.full_name}!")
+@dp.message_handler(CommandStart())
+async def bot_start(message: types.Message):
+    await message.answer(f"Salom, {message.from_user.full_name}!")
